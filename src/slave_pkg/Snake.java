@@ -1,4 +1,4 @@
-package pkg;
+package slave_pkg;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -109,7 +109,7 @@ public class Snake {
                 System.out.println();
             }
     }
-    private void TwoPlayer(String send) throws IOException {
+    private void TwoPlayer(String send, int s0r) throws IOException {
         String line = "";
         String line2 = "";
         Socket data;
@@ -129,8 +129,5 @@ public class Snake {
         ss.close();
         dis.close();
         dos.close();
-
-
-
     }
 }
