@@ -1,24 +1,25 @@
 package pkg;
-
-
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Snake {
+    int[] col0 = new int[7];
     int[] col1 = new int[7];
     int[] col2 = new int[7];
     int[] col3 = new int[7];
     int[] col4 = new int[7];
     int[] col5 = new int[7];
-    int[] col0 = new int[7];
+    boolean game_running;
     int curX;
     int curY;
+
     public void init() throws InterruptedException {
-        setCurs();
-        zero();
-        cls();
-        setSnakePos(curX,curY,1);
-        start();
+        setCurs();              //Sets beginning player position
+        zero();                 //Zeros Arrays controlling screen
+        cls();                  //Clears Screen
+        setPos(curX,curY,1);//Sets position of character(curX is X coord)(curY is Y coord)(charNum is character select)
+        game_running = true;    //Sets while loop to continue looping game
+        start();            //Runs method 'start'
     }
     private void setCurs() {
         curX = 3;
@@ -29,6 +30,7 @@ public class Snake {
         cls();
         Scanner in = new Scanner(System.in);
         draw();
+        System.out.println("Current Coords: (" + curX + "," + curY + ")");
         System.out.println("up/down/left/right?");
         String dir = in.nextLine();
         if(dir.equalsIgnoreCase("up")) {
@@ -41,19 +43,23 @@ public class Snake {
             curX++;
         }else if(dir.equalsIgnoreCase("e")) {
             System.exit(0);
+        }else if(dir.equalsIgnoreCase("refresh")) {
+            start();
         }
         zero();
-        setSnakePos(curX,curY,1);
+        setPos(curX,curY,1);
         draw();
-        Thread.sleep(2000);
+        Thread.sleep(1500);
         cls();
-        start();
-    }private void checkBounds() {
-        if(curX > 6) {
-            curX=3;
+        while(game_running) {
+            start();
         }
-        if(curY > 6) {
-            curY=3;
+    }private void checkBounds() throws InterruptedException {
+        if(curX >= 6 || curX <= 0) {
+           System.exit(0);
+        }
+        if(curY >= 6 || curY <= 0) {
+            System.exit(0);
         }
     }
     private void zero(){
@@ -71,7 +77,7 @@ public class Snake {
         System.out.println(col4[0]+"  "+col4[1]+"  "+col4[2]+"  "+col4[3]+"  "+col4[4]+"  "+col4[5]);
         System.out.println(col5[0]+"  "+col5[1]+"  "+col5[2]+"  "+col5[3]+"  "+col5[4]+"  "+col5[5]);
 
-    }private void setSnakePos(int x, int y, int charNum) {
+    }private void setPos(int x, int y, int charNum) {
         switch(y) {
             case 0:
                 col0[x] = charNum;
@@ -91,9 +97,6 @@ public class Snake {
             case 5:
                 col5[x] = charNum;
                 break;
-            /*case 6:
-                col6[x] = 1;
-                break;*/
         }
     }private void cls() {
         for(int i = 0; i < 1000; i++) {
