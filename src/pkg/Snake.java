@@ -19,7 +19,8 @@ public class Snake {
     int curX;
     int curY;
 
-    public void init() throws InterruptedException {
+    public void init() throws InterruptedException, IOException {
+        //TwoPlayer();
         setCurs();              //Sets beginning player position
         zero();                 //Zeros Arrays controlling screen
         cls();                  //Clears Screen
@@ -109,9 +110,10 @@ public class Snake {
                 System.out.println();
             }
     }
-    private void TwoPlayer(String send) throws IOException {
+    private void TwoPlayer() throws IOException {
         String line = "";
         String line2 = "";
+        String send = "";
         Socket data;
         ServerSocket ss = new ServerSocket(5000);
         new Socket("127.0.0.1", 5000);
@@ -121,6 +123,7 @@ public class Snake {
         DataOutputStream dos = new DataOutputStream(data.getOutputStream());
         while(!line.equalsIgnoreCase("over")) {
             line = dis.readUTF();
+            System.out.println(line);
         }
         while(!line2.equalsIgnoreCase("over")) {
             line2 = send;
